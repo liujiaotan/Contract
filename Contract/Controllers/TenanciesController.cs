@@ -10,7 +10,7 @@ using Contract.Models;
 
 namespace Contract.Controllers
 {
-    public class TenanciesController : Controller
+    public class TenanciesController : BaseController
     {
         private ContractTransferContext db = new ContractTransferContext();
 

@@ -1,0 +1,31 @@
+﻿/*
+ ASP.NET MvcPager 分页组件
+ Copyright:2009-2013 陕西省延安市吴起县 杨涛\Webdiyer (http://www.webdiyer.com)
+ Source code released under Ms-PL license
+ */
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Web;
+using System.Web.Mvc;
+namespace Webdiyer.WebControls.Mvc
+{
+    public static class DisplayNameForExtension
+    {
+        public static MvcHtmlString DisplayNameFor<TModel, TValue>(this HtmlHelper<IPagedList<TModel>> html, Expression<Func<TModel, TValue>> expression)
+        {
+            return GetDisplayName(expression);
+        }
+        public static MvcHtmlString DisplayNameFor<TModel, TValue>(this HtmlHelper<PagedList<TModel>> html, Expression<Func<TModel, TValue>> expression)
+        {
+            return GetDisplayName(expression);
+        }
+        private static MvcHtmlString GetDisplayName<TModel, TValue>(Expression<Func<TModel, TValue>> expression)
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, new ViewDataDictionary<TModel>());
+            string htmlFieldName = ExpressionHelper.GetExpressionText(expression);
+            string resolvedDisplayName = metadata.DisplayName ?? metadata.PropertyName ?? htmlFieldName.Split('.').Last();
+            return new MvcHtmlString(HttpUtility.HtmlEncode(resolvedDisplayName));
+        }
+    }
+}
