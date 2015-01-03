@@ -24,8 +24,16 @@ namespace Contract
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/font-awesome-ie7.min.css",
+                      "~/Content/font-awesome.min.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/editable").Include(
+                      "~/Content/bootstrap-editable.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/editable").Include(
+                       "~/Scripts/bootstrap-editable.min.js"));
         }
     }
 }

@@ -4,110 +4,96 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
+<div class="page-header">
+    <h3>租赁合同 <small>新建租赁合同</small></h3>
+</div>
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Tenancy</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ServiceCenterID, "ServiceCenterID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ServiceCenterID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ServiceCenterID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProcessID, "ProcessID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CompanyID, "客户", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ProcessID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProcessID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CompanyID, "CompanyID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CompanyID", null, htmlAttributes: new { @class = "form-control" })
+                <a href="#" id="CompanyID" name="CompanyID" data-type="text" data-pk="1">请选择客户</a>
                 @Html.ValidationMessageFor(model => model.CompanyID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UnitCost, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UnitCost, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.UnitCost,"单价", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                <div class="input-group">
+                    <div class="input-group-addon">￥</div>@Html.EditorFor(model => model.UnitCost, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
                 @Html.ValidationMessageFor(model => model.UnitCost, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ServiceFee, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ServiceFee, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.ServiceFee, "服务费", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                <div class="input-group">
+                    <div class="input-group-addon">￥</div>@Html.EditorFor(model => model.ServiceFee, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
                 @Html.ValidationMessageFor(model => model.ServiceFee, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HeatingFee, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HeatingFee, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.HeatingFee, "取暖费", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                <div class="input-group">
+                    <div class="input-group-addon">￥</div>@Html.EditorFor(model => model.HeatingFee, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
                 @Html.ValidationMessageFor(model => model.HeatingFee, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ElectricityRate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.ElectricityRate, "电费", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
                 @Html.EditorFor(model => model.ElectricityRate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ElectricityRate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LeaseTerm, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.LeaseTerm, "租赁期限（年）", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
                 @Html.EditorFor(model => model.LeaseTerm, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.LeaseTerm, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EffectDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EffectDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EffectDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="保存" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("返回", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/editable")
+    <script>
+        $(function () {
+            $('#CompanyID').editable({
+                url: '/post',
+                title: 'Enter username'
+            });
+        });
+    </script>
 }
+
+@section Styles {
+    @Styles.Render("~/Content/editable")
+}
+

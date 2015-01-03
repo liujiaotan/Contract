@@ -1,0 +1,53 @@
+﻿@model List<Contract.Models.Function>
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    <ul class="nav navbar-nav">
+        @foreach (var item in Model.Where(m => m.IsRoot == true))
+        {
+            var isCurrent = item.Controller.Split(',').Contains<string>((String)ViewBag.Controller);
+            <li class="dropdown  @(isCurrent ? "active" : "")">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.Name <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    @foreach (var menu in Model.Where(m => m.ParentID == item.ID))
+                    {
+                        if (menu.IsTag)
+                        {
+                            <li class="dropdown-header">@menu.Name</li>
+                            foreach (var tag in Model.Where(m => m.ParentID == menu.ID))
+                            {
+                                <li><a href="/@tag.Controller"><i class="@tag.Icon"></i> @tag.Name</a></li>
+                            }
+                        }
+                        else
+                        {
+                            <li><a href="/@menu.Controller"><i class="@menu.Icon"></i> @menu.Name</a></li>
+                        }
+                        <li class="divider"></li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+    <div class="btn-group navbar-form navbar-right">
+        <button type="button" class="btn btn-success"><span class="icon-user"></span></button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+            <span class="sr-only-focusable">@HttpUtility.UrlDecode(Request.Cookies.Get("Name").Value)</span>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("SignOut","Home")">登出</a></li>
+        </ul>
+    </div>
+}
+else
+{
+    using (Html.BeginForm("SignIn", "Home", FormMethod.Post, new { @class = "navbar-form navbar-right" }))
+    {
+        <input type="text" name="UserName" class="form-control" placeholder="用户名">
+        <input type="password" name="PassWord" class="form-control" placeholder="密码">
+        <button type="submit" class="btn btn-success">登录</button>
+    }
+}
