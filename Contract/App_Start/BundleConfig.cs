@@ -29,11 +29,13 @@ namespace Contract
                       "~/Content/font-awesome.min.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/editable").Include(
-                      "~/Content/bootstrap-editable.css"));
+            bundles.Add(new StyleBundle("~/Content/select2").Include(
+                      "~/Content/select2.css",
+                      "~/Content/select2-bootstrap.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/editable").Include(
-                       "~/Scripts/bootstrap-editable.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                       "~/Scripts/select2.min.js",
+                       "~/Scripts/select2_locale_zh-CN.js"));
         }
     }
 }

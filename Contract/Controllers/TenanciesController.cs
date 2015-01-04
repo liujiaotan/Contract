@@ -39,9 +39,7 @@ namespace Contract.Controllers
         // GET: Tenancies/Create
         public ActionResult Create()
         {
-            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name");
-            ViewBag.ProcessID = new SelectList(db.Processes, "ID", "Name");
-            ViewBag.ServiceCenterID = new SelectList(db.ServiceCenters, "ID", "Name");
+            ViewBag.Rooms = new SelectList(db.Rooms, "ID", "Number");
             return View();
         }
 
@@ -50,18 +48,24 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ServiceCenterID,ProcessID,CompanyID,Number,UnitCost,ServiceFee,HeatingFee,ElectricityRate,LeaseTerm,EffectDate")] Tenancy tenancy)
+        public ActionResult Create([Bind(Include = "ID,CompanyID,Number,UnitCost,ServiceFee,HeatingFee,ElectricityRate,LeaseTerm")] Tenancy tenancy, string SelectRooms)
         {
             if (ModelState.IsValid)
             {
+                tenancy.Process = db.Processes.FirstOrDefault(m=>m.Name == "Tenancy");
+                var me = db.Employees.Find(int.Parse(this.User.Identity.Name));
+                tenancy.ServiceCenterID = me.ServiceCenterID;
+                tenancy.Number = "11001";
+                var rooms = SelectRooms.Split(',');
+                foreach(var room in rooms)
+                {
+                    tenancy.Rooms.Add(db.Rooms.Find(int.Parse(room)));
+                }
                 db.Tenancies.Add(tenancy);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", tenancy.CompanyID);
-            ViewBag.ProcessID = new SelectList(db.Processes, "ID", "Name", tenancy.ProcessID);
-            ViewBag.ServiceCenterID = new SelectList(db.ServiceCenters, "ID", "Name", tenancy.ServiceCenterID);
+            ViewBag.Rooms = new SelectList(db.Rooms, "ID", "Number");
             return View(tenancy);
         }
 
@@ -88,7 +92,7 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ServiceCenterID,ProcessID,CompanyID,Number,UnitCost,ServiceFee,HeatingFee,ElectricityRate,LeaseTerm,EffectDate")] Tenancy tenancy)
+        public ActionResult Edit([Bind(Include = "ID,CompanyID,Number,UnitCost,ServiceFee,HeatingFee,ElectricityRate,LeaseTerm")] Tenancy tenancy,string SelectRooms)
         {
             if (ModelState.IsValid)
             {

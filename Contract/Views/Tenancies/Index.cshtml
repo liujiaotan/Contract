@@ -14,7 +14,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">操作 <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">新建</a></li>
+                        <li><a href="@(Url.Action("Create"))"><i class="icon-file"></i> 新建</a></li>
                     </ul>
                 </li>
             </ul>
@@ -31,34 +31,31 @@
     <table class="table table-striped table-hover table-bordered ">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Company.Name)
+                @Html.DisplayName("合同编号")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Process.Name)
+                @Html.DisplayName("客户")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ServiceCenter.Name)
+                @Html.DisplayName("房间")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Number)
+                @Html.DisplayName("单价")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UnitCost)
+                @Html.DisplayName("服务费")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ServiceFee)
+                @Html.DisplayName("取暖费")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HeatingFee)
+                @Html.DisplayName("电费")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ElectricityRate)
+                @Html.DisplayName("租赁期限")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LeaseTerm)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EffectDate)
+                @Html.DisplayName("生效日期")
             </th>
             <th></th>
         </tr>
@@ -67,16 +64,17 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Company.Name)
                 </td>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.Process.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ServiceCenter.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Number)
+                    @foreach (var room in item.Rooms)
+                    {
+                        @(room.Number + " ");
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UnitCost)
@@ -97,9 +95,9 @@
                     @Html.DisplayFor(modelItem => item.EffectDate)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("详细", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.ID })
                 </td>
             </tr>
         }
