@@ -8,19 +8,21 @@ using System.Web;
 using System.Web.Mvc;
 using Contract.Models;
 
-namespace Model.Controllers
+namespace Contract.Controllers
 {
-    public class RolesController : Controller
+    public class RolesController : BaseController
     {
         private ContractTransferContext db = new ContractTransferContext();
 
         // GET: Roles
+        [Authorize]
         public ActionResult Index()
         {
-            return View(db.Roles.Where(model=>model.ID>0).ToList());
+            return View(db.Roles.Where(model => model.ID > 0).ToList());
         }
 
         // GET: Roles/Details/5
+        [Authorize]
         public ActionResult Details(byte? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace Model.Controllers
         }
 
         // GET: Roles/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +49,7 @@ namespace Model.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "ID,Name,Description")] Role role)
         {
             if (ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace Model.Controllers
         }
 
         // GET: Roles/Edit/5
+        [Authorize]
         public ActionResult Edit(byte? id)
         {
             if (id == null)
@@ -78,6 +83,7 @@ namespace Model.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,Name,Description")] Role role)
         {
             if (ModelState.IsValid)
@@ -90,6 +96,7 @@ namespace Model.Controllers
         }
 
         // GET: Roles/Delete/5
+        [Authorize]
         public ActionResult Delete(byte? id)
         {
             if (id == null)
@@ -105,6 +112,7 @@ namespace Model.Controllers
         }
 
         // POST: Roles/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(byte id)

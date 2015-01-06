@@ -132,11 +132,17 @@
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
+  <data name="Employee" xml:space="preserve">
+    <value>员工</value>
+  </data>
   <data name="Role" xml:space="preserve">
     <value>角色</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>查询</value>
   </data>
   <data name="Tenancy" xml:space="preserve">
     <value>租赁合同</value>

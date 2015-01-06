@@ -1,7 +1,7 @@
 ﻿@using Webdiyer.WebControls.Mvc;
-@model PagedList<Contract.Models.Tenancy>
+@model PagedList<Contract.Models.Employee>
 @{
-    ViewBag.Title = Resources.Resource.Tenancy;
+    ViewBag.Title = Resources.Resource.Employee;
     Layout = "~/Views/Shared/_LayoutIndex.cshtml";
 }
 <nav class="navbar navbar-default" role="navigation">
@@ -15,15 +15,19 @@
                     </ul>
                 </li>
             </ul>
-            @using (Html.BeginForm("Index", "Tenancies", new { id = "" }, FormMethod.Get, new { id = "searchForm", @class = "navbar-form navbar-right" }))
+            @using (Html.BeginForm("Index", "Employees", new { id = "" }, FormMethod.Get, new { id = "searchForm", @class = "navbar-form navbar-right" }))
             {
                 <div class="form-group">
-                    @Html.Label("Number", "合同编号") :
-                    @Html.TextBox("Number", "", new { @class = "form-control", placeholder = "合同编号" })
+                    @Html.Label("ServiceCenter", "服务中心") :
+                    @Html.DropDownList("ServiceCenter", null, String.Empty, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
-                    @Html.Label("Company", "客户") :
-                    @Html.TextBox("Company", "", new { @class = "form-control", placeholder = "客户" })
+                    @Html.Label("RealName", "姓名") :
+                    @Html.TextBox("RealName", "", new { @class = "form-control", placeholder = "姓名" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Mobile", "电话") :
+                    @Html.TextBox("Mobile", "", new { @class = "form-control", placeholder = "电话" })
                 </div>
                 <button type="submit" class="btn btn-default">@Resources.Resource.Search</button>
             }
@@ -34,31 +38,28 @@
     <table class="table table-striped table-hover table-bordered ">
         <tr>
             <th>
-                @Html.DisplayName("合同编号")
+                @Html.DisplayName("服务中心")
             </th>
             <th>
-                @Html.DisplayName("客户")
+                @Html.DisplayName("角色")
             </th>
             <th>
-                @Html.DisplayName("房间")
+                @Html.DisplayName("姓名")
             </th>
             <th>
-                @Html.DisplayName("单价")
+                @Html.DisplayName("性别")
             </th>
             <th>
-                @Html.DisplayName("服务费")
+                @Html.DisplayName("电话")
             </th>
             <th>
-                @Html.DisplayName("取暖费")
+                @Html.DisplayName("QQ")
             </th>
             <th>
-                @Html.DisplayName("电费")
+                @Html.DisplayName("邮箱")
             </th>
             <th>
-                @Html.DisplayName("租赁期限")
-            </th>
-            <th>
-                @Html.DisplayName("生效日期")
+                @Html.DisplayName("是否冻结")
             </th>
             <th></th>
         </tr>
@@ -67,35 +68,31 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Number)
+                    @Html.DisplayFor(modelItem => item.ServiceCenter.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Company.Name)
-                </td>
-
-                <td>
-                    @foreach (var room in item.Rooms)
+                    @if (item.Roles.Count > 0)
                     {
-                        @(room.Number + " ");
+                        @Html.DisplayFor(modelItem => item.Roles.First().Name)
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UnitCost)
+                    @Html.DisplayFor(modelItem => item.RealName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ServiceFee)
+                    @(item.Sex ? "男" : "女")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.HeatingFee)
+                    @Html.DisplayFor(modelItem => item.Mobile)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ElectricityRate)
+                    @Html.DisplayFor(modelItem => item.QQ)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LeaseTerm)
+                    @Html.DisplayFor(modelItem => item.E_Mail)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EffectDate)
+                    @Html.DisplayFor(modelItem => item.IsFreezed)
                 </td>
                 <td>
                     @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = item.ID }) |

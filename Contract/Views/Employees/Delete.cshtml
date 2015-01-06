@@ -1,0 +1,79 @@
+﻿@model Contract.Models.Employee
+
+@{
+    ViewBag.Title = Resources.Resource.Employee;
+    Layout = "~/Views/Shared/_LayoutDelete.cshtml";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("服务中心：")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceCenter.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("角色：")
+        </dt>
+
+        <dd>
+            @if (Model.Roles.Count > 0)
+            {
+                @Html.DisplayFor(model => model.Roles.First().Name)
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayName("姓名：")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RealName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("性别：")
+        </dt>
+
+        <dd>
+            @(Model.Sex ? "男" : "女")
+        </dd>
+
+        <dt>
+            @Html.DisplayName("手机：")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("QQ：")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QQ)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("邮箱：")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.E_Mail)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" /> |
+            @Html.ActionLink(Resources.Resource.Back, "Index")
+        </div>
+    }
+</div>

@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 员工 的本地化字符串。
+        /// </summary>
+        internal static string Employee {
+            get {
+                return ResourceManager.GetString("Employee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 角色 的本地化字符串。
         /// </summary>
         internal static string Role {
@@ -120,6 +129,15 @@ namespace Resources {
         internal static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查询 的本地化字符串。
+        /// </summary>
+        internal static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         

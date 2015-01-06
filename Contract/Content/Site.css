@@ -26,3 +26,6 @@ textarea {
 .pagination {
     margin-top:0;
 }
+.navbar-form .form-group label {
+    margin-left:6px;
+}
