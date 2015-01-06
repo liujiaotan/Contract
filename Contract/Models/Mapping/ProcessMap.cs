@@ -16,7 +16,6 @@ namespace Contract.Models.Mapping
                 .HasMaxLength(20);
 
             this.Property(t => t.Description)
-                .IsFixedLength()
                 .HasMaxLength(100);
 
             // Table & Column Mappings

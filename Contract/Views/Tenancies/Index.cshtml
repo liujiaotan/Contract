@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Contract.Models.Tenancy>
-
+﻿@using Webdiyer.WebControls.Mvc;
+@model PagedList<Contract.Models.Tenancy>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "租赁合同";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="page-header">
@@ -18,12 +18,18 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right" role="search">
+            @using (Html.BeginForm("Index", "Tenancies", new { id = "" }, FormMethod.Get, new { id = "searchForm", @class = "navbar-form navbar-right" }))
+            {
                 <div class="form-group">
-                    <input name="Number" type="text" class="form-control" placeholder="合同号">
+                    @Html.Label("Number", "合同编号") :
+                    @Html.TextBox("Number", "", new { @class = "form-control", placeholder = "合同编号" })
+                </div>
+                <div class="form-group">
+                    @Html.Label("Company", "客户") :
+                    @Html.TextBox("Company", "", new { @class = "form-control", placeholder = "客户" })
                 </div>
                 <button type="submit" class="btn btn-default">查询</button>
-            </form>
+            }
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
@@ -104,3 +110,6 @@
 
     </table>
 </div>
+<nav class="text-center">
+    @Html.Pager(Model, new PagerOptions { PageIndexParameterName = "page", ShowGoButton = false, ContainerTagName = "ul", CssClass = "pagination" })
+</nav>

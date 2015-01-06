@@ -28,6 +28,7 @@ namespace Contract.Models.Mapping
             this.Property(t => t.ElectricityRate).HasColumnName("ElectricityRate");
             this.Property(t => t.LeaseTerm).HasColumnName("LeaseTerm");
             this.Property(t => t.EffectDate).HasColumnName("EffectDate");
+            this.Property(t => t.IsDelete).HasColumnName("IsDelete");
 
             // Relationships
             this.HasRequired(t => t.Company)

@@ -1,34 +1,31 @@
 ﻿@model Contract.Models.Tenancy
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "租赁合同 - 详细";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Details</h2>
-
+<div class="page-header">
+    <h3>租赁合同 <small>查看租赁合同详细信息</small></h3>
+</div>
 <div>
-    <h4>Tenancy</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Company.Name)
+            @Html.DisplayName("合同编号")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt>
+            @Html.DisplayName("客户")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Company.Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Process.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Process.Name)
-        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ServiceCenter.Name)
+            @Html.DisplayName("服务中心")
         </dt>
 
         <dd>
@@ -36,15 +33,26 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Number)
+            @Html.DisplayName("房间")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Number)
+            @foreach (var room in Model.Rooms)
+            {
+                @(room.Number + " ");
+            }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UnitCost)
+            @Html.DisplayName("面积")
+        </dt>
+
+        <dd>
+            @Model.Rooms.Sum(model=>model.Space)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("单价")
         </dt>
 
         <dd>
@@ -52,7 +60,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ServiceFee)
+            @Html.DisplayName("服务费")
         </dt>
 
         <dd>
@@ -60,7 +68,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.HeatingFee)
+            @Html.DisplayName("取暖费")
         </dt>
 
         <dd>
@@ -68,7 +76,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ElectricityRate)
+            @Html.DisplayName("电费")
         </dt>
 
         <dd>
@@ -76,24 +84,24 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LeaseTerm)
+            @Html.DisplayName("租赁期限") 
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LeaseTerm)
+            @Html.DisplayFor(model => model.LeaseTerm) 年
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EffectDate)
+            @Html.DisplayName("生效日期")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EffectDate)
+            @(Model.EffectDate == null ? "未生效" : Model.EffectDate.ToString())
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("编辑", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("返回", "Index")
 </p>

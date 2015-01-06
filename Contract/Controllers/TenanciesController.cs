@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Contract.Models;
+using System.Data.Entity.Validation;
+using Webdiyer.WebControls.Mvc;
 
 namespace Contract.Controllers
 {
@@ -15,13 +17,19 @@ namespace Contract.Controllers
         private ContractTransferContext db = new ContractTransferContext();
 
         // GET: Tenancies
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult Index(int? id,  string Number,string Company, int page = 1)
         {
-            var tenancies = db.Tenancies.Include(t => t.Company).Include(t => t.Process).Include(t => t.ServiceCenter);
-            return View(tenancies.ToList());
+            var tenancies = db.Tenancies.Include(t => t.Company).Include(t => t.Process).Include(t => t.ServiceCenter).Where(m=>m.IsDelete==false);
+            if (!string.IsNullOrWhiteSpace(Number))
+                tenancies = tenancies.Where(m => m.Number.Contains(Number));
+            if (Company != null)
+                tenancies = tenancies.Where(m => m.Company.Name.Contains(Company));
+            return View(tenancies.OrderByDescending(m => m.ID).ToPagedList<Tenancy>(page, pageSize));
         }
 
         // GET: Tenancies/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +45,7 @@ namespace Contract.Controllers
         }
 
         // GET: Tenancies/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.Rooms = new SelectList(db.Rooms, "ID", "Number");
@@ -48,6 +57,7 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "ID,CompanyID,Number,UnitCost,ServiceFee,HeatingFee,ElectricityRate,LeaseTerm")] Tenancy tenancy, string SelectRooms)
         {
             if (ModelState.IsValid)
@@ -70,6 +80,7 @@ namespace Contract.Controllers
         }
 
         // GET: Tenancies/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,9 +92,7 @@ namespace Contract.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", tenancy.CompanyID);
-            ViewBag.ProcessID = new SelectList(db.Processes, "ID", "Name", tenancy.ProcessID);
-            ViewBag.ServiceCenterID = new SelectList(db.ServiceCenters, "ID", "Name", tenancy.ServiceCenterID);
+            ViewBag.Rooms = new SelectList(db.Rooms, "ID", "Number");
             return View(tenancy);
         }
 
@@ -92,12 +101,32 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,CompanyID,Number,UnitCost,ServiceFee,HeatingFee,ElectricityRate,LeaseTerm")] Tenancy tenancy,string SelectRooms)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tenancy).State = EntityState.Modified;
-                db.SaveChanges();
+                var currentTenancy = db.Tenancies.Find(tenancy.ID);
+                currentTenancy.CompanyID = tenancy.CompanyID;
+                currentTenancy.UnitCost = tenancy.UnitCost;
+                currentTenancy.ServiceFee = tenancy.ServiceFee;
+                currentTenancy.HeatingFee = tenancy.HeatingFee;
+                currentTenancy.ElectricityRate = tenancy.ElectricityRate;
+                currentTenancy.LeaseTerm = tenancy.LeaseTerm;
+                currentTenancy.Rooms.Clear();
+                var rooms = SelectRooms.Split(',');
+                foreach (var room in rooms)
+                {
+                    currentTenancy.Rooms.Add(db.Rooms.Find(int.Parse(room)));
+                }
+                try
+                {
+                    db.SaveChanges();// 写数据库
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", tenancy.CompanyID);
@@ -107,6 +136,7 @@ namespace Contract.Controllers
         }
 
         // GET: Tenancies/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -124,10 +154,11 @@ namespace Contract.Controllers
         // POST: Tenancies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Tenancy tenancy = db.Tenancies.Find(id);
-            db.Tenancies.Remove(tenancy);
+            tenancy.IsDelete = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

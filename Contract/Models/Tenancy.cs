@@ -21,6 +21,7 @@ namespace Contract.Models
         public decimal ElectricityRate { get; set; }
         public int LeaseTerm { get; set; }
         public Nullable<System.DateTime> EffectDate { get; set; }
+        public bool IsDelete { get; set; }
         public virtual Company Company { get; set; }
         public virtual ServiceCenter ServiceCenter { get; set; }
         public virtual Process Process { get; set; }
