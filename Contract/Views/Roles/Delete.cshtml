@@ -1,0 +1,36 @@
+﻿@model Contract.Models.Role
+
+@{
+    ViewBag.Title = Resources.Resource.Role;
+    Layout = "~/Views/Shared/_LayoutDelete.cshtml";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("名称")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("描述")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" /> |
+            @Html.ActionLink(Resources.Resource.Back, "Index")
+        </div>
+    }
+</div>

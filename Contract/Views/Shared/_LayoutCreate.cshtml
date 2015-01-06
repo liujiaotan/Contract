@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+    <h3>@ViewBag.Title <small>@(ViewBag.Title)数据维护与查询</small></h3>
+</div>
+@{
+    ViewBag.Title = ViewBag.Title + " - " + Resources.Resource.Create;
+}
+@RenderBody()
+@section scripts{
+    @RenderSection("scripts", required: false)
+}
+@section styles{
+    @RenderSection("styles", required: false)
+} 
+

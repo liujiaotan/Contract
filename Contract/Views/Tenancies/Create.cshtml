@@ -1,12 +1,9 @@
 ﻿@model Contract.Models.Tenancy
 
 @{
-    ViewBag.Title = "租赁合同 - 新建";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Resources.Resource.Tenancy;
+    Layout = "~/Views/Shared/_LayoutCreate.cshtml";
 }
-<div class="page-header">
-    <h3>租赁合同 <small>新建租赁合同</small></h3>
-</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

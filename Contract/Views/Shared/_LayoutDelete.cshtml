@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+    <h3>@ViewBag.Title <small>删除@(ViewBag.Title)信息</small></h3>
+</div>
+<div class="alert alert-warning" role="alert">
+    <strong>提示！</strong>
+    您确定要删除这条记录吗？
+</div>
+@{
+    ViewBag.Title = ViewBag.Title + " - " + Resources.Resource.Delete;
+}
+@RenderBody()
+@section scripts{
+    @RenderSection("scripts", required: false)
+}
+@section styles{
+    @RenderSection("styles", required: false)
+} 
+
