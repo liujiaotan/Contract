@@ -128,6 +128,10 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\RoomCategoriesController.cs" />
+    <Compile Include="Controllers\RoomsController.cs" />
+    <Compile Include="Controllers\RoomTypesController.cs" />
+    <Compile Include="Controllers\ServiceCentersController.cs" />
     <Compile Include="Controllers\TenanciesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -250,6 +254,26 @@
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\Shared\Warning.cshtml" />
+    <Content Include="Views\RoomCategories\Create.cshtml" />
+    <Content Include="Views\RoomCategories\Delete.cshtml" />
+    <Content Include="Views\RoomCategories\Details.cshtml" />
+    <Content Include="Views\RoomCategories\Edit.cshtml" />
+    <Content Include="Views\RoomCategories\Index.cshtml" />
+    <Content Include="Views\RoomTypes\Create.cshtml" />
+    <Content Include="Views\RoomTypes\Delete.cshtml" />
+    <Content Include="Views\RoomTypes\Details.cshtml" />
+    <Content Include="Views\RoomTypes\Edit.cshtml" />
+    <Content Include="Views\RoomTypes\Index.cshtml" />
+    <Content Include="Views\ServiceCenters\Create.cshtml" />
+    <Content Include="Views\ServiceCenters\Delete.cshtml" />
+    <Content Include="Views\ServiceCenters\Details.cshtml" />
+    <Content Include="Views\ServiceCenters\Edit.cshtml" />
+    <Content Include="Views\ServiceCenters\Index.cshtml" />
+    <Content Include="Views\Rooms\Create.cshtml" />
+    <Content Include="Views\Rooms\Delete.cshtml" />
+    <Content Include="Views\Rooms\Details.cshtml" />
+    <Content Include="Views\Rooms\Edit.cshtml" />
+    <Content Include="Views\Rooms\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -119,14 +119,7 @@ namespace Contract.Controllers
                 {
                     currentTenancy.Rooms.Add(db.Rooms.Find(int.Parse(room)));
                 }
-                try
-                {
-                    db.SaveChanges();// 写数据库
-                }
-                catch (DbEntityValidationException dbEx)
-                {
-
-                }
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", tenancy.CompanyID);

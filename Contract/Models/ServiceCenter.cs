@@ -15,7 +15,6 @@ namespace Contract.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public System.DateTime CreateDate { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<Tenancy> Tenancies { get; set; }

@@ -138,11 +138,23 @@
   <data name="Role" xml:space="preserve">
     <value>角色</value>
   </data>
+  <data name="Room" xml:space="preserve">
+    <value>房间</value>
+  </data>
+  <data name="RoomCategory" xml:space="preserve">
+    <value>房间类型</value>
+  </data>
+  <data name="RoomType" xml:space="preserve">
+    <value>房间状态</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>查询</value>
+  </data>
+  <data name="ServiceCenter" xml:space="preserve">
+    <value>服务中心</value>
   </data>
   <data name="Tenancy" xml:space="preserve">
     <value>租赁合同</value>

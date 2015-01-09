@@ -1,0 +1,29 @@
+﻿@model Contract.Models.RoomType
+
+@{
+    ViewBag.Title = Resources.Resource.RoomType;
+    Layout = "~/Views/Shared/_LayoutDetails.cshtml";
+}
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("名称")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("是否可出租")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsRentable)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = Model.ID }) |
+    @Html.ActionLink(Resources.Resource.Back, "Index")
+</p>

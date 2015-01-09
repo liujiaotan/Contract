@@ -24,7 +24,6 @@ namespace Contract.Models.Mapping
             this.Property(t => t.ID).HasColumnName("ID");
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.Address).HasColumnName("Address");
-            this.Property(t => t.CreateDate).HasColumnName("CreateDate");
         }
     }
 }

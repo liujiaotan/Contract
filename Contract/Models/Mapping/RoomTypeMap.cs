@@ -20,7 +20,6 @@ namespace Contract.Models.Mapping
             this.Property(t => t.ID).HasColumnName("ID");
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.IsRentable).HasColumnName("IsRentable");
-            this.Property(t => t.CreateDate).HasColumnName("CreateDate");
         }
     }
 }

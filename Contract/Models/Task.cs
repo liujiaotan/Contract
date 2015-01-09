@@ -16,7 +16,7 @@ namespace Contract.Models
         public string Name { get; set; }
         public string NoteType { get; set; }
         public string ProcessLogic { get; set; }
-        public byte AssignedRole { get; set; }
+        public int AssignedRole { get; set; }
         public int DueDate { get; set; }
         public virtual Role Role { get; set; }
         public virtual Process Process { get; set; }

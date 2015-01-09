@@ -103,11 +103,28 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ServiceCenterID,RealName,Sex,Mobile,QQ,E_Mail,IsFreezed")] Employee employee)
+        public ActionResult Edit([Bind(Include = "ID,ServiceCenterID,RealName,Sex,Mobile,QQ,E_Mail,IsFreezed")] Employee employee, int? Roles)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                var currentEmployee = db.Employees.Find(employee.ID);
+                currentEmployee.ServiceCenterID = employee.ServiceCenterID;
+                currentEmployee.RealName = employee.RealName;
+                currentEmployee.Sex = employee.Sex;
+                currentEmployee.Mobile = employee.Mobile;
+                currentEmployee.QQ = employee.QQ;
+                currentEmployee.E_Mail = employee.E_Mail;
+                currentEmployee.IsFreezed = employee.IsFreezed;
+                currentEmployee.Roles.Clear();
+
+                if (Roles != null && Roles > 0)
+                {
+                    var role = db.Roles.Find(Roles);
+                    if (role != null)
+                    {
+                        currentEmployee.Roles.Add(role);
+                    }
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -137,7 +154,7 @@ namespace Contract.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
+            employee.IsDeleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

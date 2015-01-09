@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Contract.Models.Role>
+﻿@model IEnumerable<Contract.Models.ServiceCenter>
 
 @{
-    ViewBag.Title = Resources.Resource.Role;
+    ViewBag.Title = Resources.Resource.ServiceCenter; ;
     Layout = "~/Views/Shared/_LayoutIndex.cshtml";
 }
 <nav class="navbar navbar-default" role="navigation">
@@ -25,9 +25,9 @@
                 @Html.DisplayName("名称")
             </th>
             <th>
-                @Html.DisplayName("描述")
+                @Html.DisplayName("地址")
             </th>
-            <th></th>
+            <th class="col-md-2"></th>
         </tr>
 
         @foreach (var item in Model)
@@ -37,7 +37,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.Address)
                 </td>
                 <td>
                     @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = item.ID }) |

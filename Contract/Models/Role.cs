@@ -12,7 +12,7 @@ namespace Contract.Models
             this.Employees = new List<Employee>();
         }
 
-        public byte ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }

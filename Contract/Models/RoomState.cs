@@ -12,7 +12,6 @@ namespace Contract.Models
 
         public byte ID { get; set; }
         public string Name { get; set; }
-        public System.DateTime CreateDate { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
     }
 }

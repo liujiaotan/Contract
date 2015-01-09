@@ -124,6 +124,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 房间 的本地化字符串。
+        /// </summary>
+        internal static string Room {
+            get {
+                return ResourceManager.GetString("Room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 房间类型 的本地化字符串。
+        /// </summary>
+        internal static string RoomCategory {
+            get {
+                return ResourceManager.GetString("RoomCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 房间状态 的本地化字符串。
+        /// </summary>
+        internal static string RoomType {
+            get {
+                return ResourceManager.GetString("RoomType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 保存 的本地化字符串。
         /// </summary>
         internal static string Save {
@@ -138,6 +165,15 @@ namespace Resources {
         internal static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 服务中心 的本地化字符串。
+        /// </summary>
+        internal static string ServiceCenter {
+            get {
+                return ResourceManager.GetString("ServiceCenter", resourceCulture);
             }
         }
         

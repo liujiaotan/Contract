@@ -12,8 +12,8 @@ namespace Contract.Models
 
         public int ID { get; set; }
         public int ServiceCenterID { get; set; }
-        public byte Category { get; set; }
-        public byte Type { get; set; }
+        public int Category { get; set; }
+        public int Type { get; set; }
         public byte State { get; set; }
         public byte Floor { get; set; }
         public string Number { get; set; }
