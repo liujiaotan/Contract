@@ -1,0 +1,97 @@
+﻿@model Contract.Models.Contact
+
+@{
+    ViewBag.Title = Resources.Resource.Contact;
+    Layout = "~/Views/Shared/_LayoutDetails.cshtml";
+}
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("公司")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.Name)
+        </dd>
+
+        <dt>
+           @Html.DisplayName("姓名")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RealName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("性别")
+        </dt>
+
+        <dd>
+            @(Model.Sex ? "男" : "女")
+        </dd>
+
+        <dt>
+            @Html.DisplayName("电话")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Line)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("手机")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("职位")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("QQ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QQ)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("邮箱")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.E_Mail)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("MSN")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MSN)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("创建日期")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = Model.ID }) |
+    @Html.ActionLink(Resources.Resource.Back, "Index")
+</p>
+

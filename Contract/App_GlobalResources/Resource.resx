@@ -120,6 +120,12 @@
   <data name="Back" xml:space="preserve">
     <value>返回</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>联系人</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>新建</value>
   </data>

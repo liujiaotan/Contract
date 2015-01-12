@@ -1,0 +1,62 @@
+﻿@model Contract.Models.Company
+
+@{
+    ViewBag.Title = Resources.Resource.Company;
+    Layout = "~/Views/Shared/_LayoutDelete.cshtml";
+}
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("名称")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("税务号")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("法人")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JuridicalPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("地址")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("创建日期")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" /> |
+            @Html.ActionLink(Resources.Resource.Back, "Index")
+        </div>
+    }
+</div>
+

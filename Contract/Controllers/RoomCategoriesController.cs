@@ -15,12 +15,14 @@ namespace Contract.Controllers
         private ContractTransferContext db = new ContractTransferContext();
 
         // GET: RoomCategories
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.RoomCategories.ToList());
         }
 
         // GET: RoomCategories/Details/5
+        [Authorize]
         public ActionResult Details(byte? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace Contract.Controllers
         }
 
         // GET: RoomCategories/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +49,7 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "Name")] RoomCategory roomCategory)
         {
             if (ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace Contract.Controllers
         }
 
         // GET: RoomCategories/Edit/5
+        [Authorize]
         public ActionResult Edit(byte? id)
         {
             if (id == null)
@@ -78,6 +83,7 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,Name,CreateDate")] RoomCategory roomCategory)
         {
             if (ModelState.IsValid)
@@ -90,6 +96,7 @@ namespace Contract.Controllers
         }
 
         // GET: RoomCategories/Delete/5
+        [Authorize]
         public ActionResult Delete(byte? id)
         {
             if (id == null)
@@ -107,6 +114,7 @@ namespace Contract.Controllers
         // POST: RoomCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(byte id)
         {
             RoomCategory roomCategory = db.RoomCategories.Find(id);

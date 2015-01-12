@@ -7,21 +7,32 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Contract.Models;
+using Webdiyer.WebControls.Mvc;
 
 namespace Contract.Controllers
 {
-    public class ServiceCentersController : BaseController
+    public class ContactsController : BaseController
     {
         private ContractTransferContext db = new ContractTransferContext();
 
-        // GET: ServiceCenters
+        // GET: Contacts
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(int? id, string Name, string RealName, string Line, int page = 1)
         {
-            return View(db.ServiceCenters.ToList());
+
+            var contacts = db.Contacts.Include(c => c.Company); ;
+            if (id != null)
+                contacts = contacts.Where(m => m.CompanyID == id);
+            if (!string.IsNullOrWhiteSpace(Name))
+                contacts = contacts.Where(m => m.Company.Name.Contains(Name));
+            if (!string.IsNullOrWhiteSpace(RealName))
+                contacts = contacts.Where(m => m.RealName.Contains(RealName));
+            if (!string.IsNullOrWhiteSpace(Line))
+                contacts = contacts.Where(m => m.Line.Contains(Line));
+            return View(contacts.OrderByDescending(m => m.ID).ToPagedList<Contact>(page, pageSize));
         }
 
-        // GET: ServiceCenters/Details/5
+        // GET: Contacts/Details/5
         [Authorize]
         public ActionResult Details(int? id)
         {
@@ -29,40 +40,42 @@ namespace Contract.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceCenter serviceCenter = db.ServiceCenters.Find(id);
-            if (serviceCenter == null)
+            Contact contact = db.Contacts.Find(id);
+            if (contact == null)
             {
                 return HttpNotFound();
             }
-            return View(serviceCenter);
+            return View(contact);
         }
 
-        // GET: ServiceCenters/Create
+        // GET: Contacts/Create
         [Authorize]
         public ActionResult Create()
         {
+            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name");
             return View();
         }
 
-        // POST: ServiceCenters/Create
+        // POST: Contacts/Create
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Name,Address")] ServiceCenter serviceCenter)
+        public ActionResult Create([Bind(Include = "ID,CompanyID,RealName,Sex,Line,Mobile,Position,QQ,E_Mail,MSN,CreateDate")] Contact contact)
         {
             if (ModelState.IsValid)
             {
-                db.ServiceCenters.Add(serviceCenter);
+                db.Contacts.Add(contact);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(serviceCenter);
+            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", contact.CompanyID);
+            return View(contact);
         }
 
-        // GET: ServiceCenters/Edit/5
+        // GET: Contacts/Edit/5
         [Authorize]
         public ActionResult Edit(int? id)
         {
@@ -70,32 +83,34 @@ namespace Contract.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceCenter serviceCenter = db.ServiceCenters.Find(id);
-            if (serviceCenter == null)
+            Contact contact = db.Contacts.Find(id);
+            if (contact == null)
             {
                 return HttpNotFound();
             }
-            return View(serviceCenter);
+            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", contact.CompanyID);
+            return View(contact);
         }
 
-        // POST: ServiceCenters/Edit/5
+        // POST: Contacts/Edit/5
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "ID,Name,Address")] ServiceCenter serviceCenter)
+        public ActionResult Edit([Bind(Include = "ID,CompanyID,RealName,Sex,Line,Mobile,Position,QQ,E_Mail,MSN,CreateDate")] Contact contact)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(serviceCenter).State = EntityState.Modified;
+                db.Entry(contact).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(serviceCenter);
+            ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", contact.CompanyID);
+            return View(contact);
         }
 
-        // GET: ServiceCenters/Delete/5
+        // GET: Contacts/Delete/5
         [Authorize]
         public ActionResult Delete(int? id)
         {
@@ -103,22 +118,22 @@ namespace Contract.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceCenter serviceCenter = db.ServiceCenters.Find(id);
-            if (serviceCenter == null)
+            Contact contact = db.Contacts.Find(id);
+            if (contact == null)
             {
                 return HttpNotFound();
             }
-            return View(serviceCenter);
+            return View(contact);
         }
 
-        // POST: ServiceCenters/Delete/5
+        // POST: Contacts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            ServiceCenter serviceCenter = db.ServiceCenters.Find(id);
-            db.ServiceCenters.Remove(serviceCenter);
+            Contact contact = db.Contacts.Find(id);
+            db.Contacts.Remove(contact);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

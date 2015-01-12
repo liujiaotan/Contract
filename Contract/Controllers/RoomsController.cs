@@ -16,6 +16,7 @@ namespace Contract.Controllers
         private ContractTransferContext db = new ContractTransferContext();
 
         // GET: Rooms
+        [Authorize]
         public ActionResult Index(int? id, int? ServiceCenter, int? Category, string Number, int page = 1)
         {
 
@@ -32,6 +33,7 @@ namespace Contract.Controllers
         }
 
         // GET: Rooms/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -47,6 +49,7 @@ namespace Contract.Controllers
         }
 
         // GET: Rooms/Create
+        [Authorize]
         public ActionResult Create(int? id)
         {
 
@@ -63,6 +66,7 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "ID,ServiceCenterID,Category,Type,Number,Space,Description")] Room room)
         {
             if (ModelState.IsValid)
@@ -82,6 +86,7 @@ namespace Contract.Controllers
         }
 
         // GET: Rooms/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -105,6 +110,7 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,ServiceCenterID,Category,Type,State,Floor,Number,Space,Description,CreateDate")] Room room)
         {
             if (ModelState.IsValid)
@@ -123,6 +129,7 @@ namespace Contract.Controllers
         }
 
         // GET: Rooms/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -140,6 +147,7 @@ namespace Contract.Controllers
         // POST: Rooms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Room room = db.Rooms.Find(id);

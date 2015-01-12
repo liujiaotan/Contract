@@ -16,6 +16,7 @@ namespace Contract.Controllers
         private ContractTransferContext db = new ContractTransferContext();
 
         // GET: Employees
+        [Authorize]
         public ActionResult Index(int? id, int? ServiceCenter, string RealName, string Mobile, int page = 1)
         {
             var employee = db.Employees.Include(c => c.ServiceCenter).Include(m => m.Roles).Where(m => m.IsDeleted == false && m.ID > 0);
@@ -32,6 +33,7 @@ namespace Contract.Controllers
         }
 
         // GET: Employees/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -47,6 +49,7 @@ namespace Contract.Controllers
         }
 
         // GET: Employees/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.ServiceCenterID = new SelectList(db.ServiceCenters, "ID", "Name");
@@ -82,6 +85,7 @@ namespace Contract.Controllers
         }
 
         // GET: Employees/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -103,6 +107,7 @@ namespace Contract.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,ServiceCenterID,RealName,Sex,Mobile,QQ,E_Mail,IsFreezed")] Employee employee, int? Roles)
         {
             if (ModelState.IsValid)
@@ -134,6 +139,7 @@ namespace Contract.Controllers
         }
 
         // GET: Employees/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -151,6 +157,7 @@ namespace Contract.Controllers
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = db.Employees.Find(id);

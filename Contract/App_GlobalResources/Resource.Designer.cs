@@ -70,6 +70,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 公司 的本地化字符串。
+        /// </summary>
+        internal static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 联系人 的本地化字符串。
+        /// </summary>
+        internal static string Contact {
+            get {
+                return ResourceManager.GetString("Contact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 新建 的本地化字符串。
         /// </summary>
         internal static string Create {
