@@ -64,8 +64,20 @@ namespace Contract.Controllers
             {
                 tenancy.Process = db.Processes.FirstOrDefault(m=>m.Name == "Tenancy");
                 var me = db.Employees.Find(int.Parse(this.User.Identity.Name));
+                var serviceCenter = db.ServiceCenters.FirstOrDefault(m => m.ID == me.ServiceCenterID);
                 tenancy.ServiceCenterID = me.ServiceCenterID;
-                tenancy.Number = "11001";
+                var lastTenancy = db.Tenancies.OrderByDescending(m => m.Number).FirstOrDefault(m => m.ServiceCenterID == me.ServiceCenterID);
+                var number = "";
+                if(lastTenancy!=null)
+                {
+                    number = lastTenancy.Number;
+                }
+                var serialNumber = "";
+                if(number == "" || int.Parse(number.Substring(number.Length-5,2))!=DateTime.Now.Month)
+                   serialNumber = "001";
+                else
+                   serialNumber = (int.Parse(number.Substring(number.Length - 3)) + 1).ToString().PadLeft(3, '0');
+                tenancy.Number = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + serialNumber;
                 var rooms = SelectRooms.Split(',');
                 foreach(var room in rooms)
                 {
