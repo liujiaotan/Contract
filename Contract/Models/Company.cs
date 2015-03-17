@@ -12,10 +12,15 @@ namespace Contract.Models
         }
 
         public int ID { get; set; }
+        public string Type { get; set; }
         public string Name { get; set; }
         public string TaxNumber { get; set; }
+        public string BusinessNumber { get; set; }
         public string JuridicalPerson { get; set; }
+        public string Produce { get; set; }
+        public string Need { get; set; }
         public string Address { get; set; }
+        public string HomePage { get; set; }
         public System.DateTime CreateDate { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
         public virtual ICollection<Tenancy> Tenancies { get; set; }

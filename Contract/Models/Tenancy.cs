@@ -7,6 +7,7 @@ namespace Contract.Models
     {
         public Tenancy()
         {
+            this.TenancyCheckLogs = new List<TenancyCheckLog>();
             this.Rooms = new List<Room>();
         }
 
@@ -25,6 +26,7 @@ namespace Contract.Models
         public virtual Company Company { get; set; }
         public virtual ServiceCenter ServiceCenter { get; set; }
         public virtual Process Process { get; set; }
+        public virtual ICollection<TenancyCheckLog> TenancyCheckLogs { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
     }
 }

@@ -36,6 +36,12 @@ namespace Contract
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
                        "~/Scripts/select2.min.js",
                        "~/Scripts/select2_locale_zh-CN.js"));
+
+            bundles.Add(new StyleBundle("~/Content/editable").Include(
+                       "~/Content/bootstrap-editable.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/editable").Include(
+                       "~/Scripts/bootstrap-editable.min.js"));
         }
     }
 }

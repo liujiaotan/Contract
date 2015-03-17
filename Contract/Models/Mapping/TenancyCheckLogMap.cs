@@ -11,9 +11,6 @@ namespace Contract.Models.Mapping
             this.HasKey(t => t.ID);
 
             // Properties
-            this.Property(t => t.ID)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
             this.Property(t => t.Action)
                 .IsRequired()
                 .HasMaxLength(20);
@@ -26,6 +23,18 @@ namespace Contract.Models.Mapping
             this.Property(t => t.TaskID).HasColumnName("TaskID");
             this.Property(t => t.Action).HasColumnName("Action");
             this.Property(t => t.Date).HasColumnName("Date");
+
+            // Relationships
+            this.HasRequired(t => t.Tenancy)
+                .WithMany(t => t.TenancyCheckLogs)
+                .HasForeignKey(d => d.TenancyID);
+            this.HasRequired(t => t.Employee)
+                .WithMany(t => t.TenancyCheckLogs)
+                .HasForeignKey(d => d.EmployeeID);
+            this.HasRequired(t => t.Task)
+                .WithMany(t => t.TenancyCheckLogs)
+                .HasForeignKey(d => d.TaskID);
+
         }
     }
 }

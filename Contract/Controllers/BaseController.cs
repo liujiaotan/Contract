@@ -20,6 +20,14 @@ namespace Contract.Controllers
             }
         }
         private static List<Function> menus;
+
+        protected int UserID
+        {
+            get {
+                return int.Parse(this.User.Identity.Name);
+            }
+        }
+
         protected List<Function> Menus
         {
             get {

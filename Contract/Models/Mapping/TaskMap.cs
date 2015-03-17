@@ -23,6 +23,10 @@ namespace Contract.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(10);
 
+            this.Property(t => t.Operate)
+                .IsRequired()
+                .HasMaxLength(10);
+
             // Table & Column Mappings
             this.ToTable("Task", "WorkFlow");
             this.Property(t => t.ID).HasColumnName("ID");
@@ -31,6 +35,7 @@ namespace Contract.Models.Mapping
             this.Property(t => t.NoteType).HasColumnName("NoteType");
             this.Property(t => t.ProcessLogic).HasColumnName("ProcessLogic");
             this.Property(t => t.AssignedRole).HasColumnName("AssignedRole");
+            this.Property(t => t.Operate).HasColumnName("Operate");
             this.Property(t => t.DueDate).HasColumnName("DueDate");
 
             // Relationships

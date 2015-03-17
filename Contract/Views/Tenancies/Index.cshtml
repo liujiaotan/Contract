@@ -65,6 +65,7 @@
 
         @foreach (var item in Model)
         {
+            var lastLog = item.TenancyCheckLogs.OrderByDescending(m=>m.ID).FirstOrDefault();
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Number)
@@ -97,13 +98,32 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EffectDate)
                 </td>
-                <td>
-                    @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = item.ID }) |
-                    @Html.ActionLink(Resources.Resource.Details, "Details", new { id = item.ID }) |
-                    @Html.ActionLink(Resources.Resource.Delete, "Delete", new { id = item.ID })|
-                    @Html.ActionLink(Resources.Resource.Delete, "Delete", new { id = item.ID })
-                </td>
-            </tr>
+                @if (lastLog.EmployeeID.ToString() == this.User.Identity.Name)
+                { 
+                    if (lastLog.Task.NoteType == "Start")
+                    {
+                        <td>
+                            @Html.ActionLink(Resources.Resource.Edit, "Edit", new { id = item.ID }) |
+                            @Html.ActionLink(Resources.Resource.Details, "Details", new { id = item.ID }) |
+                            @Html.ActionLink(Resources.Resource.Delete, "Delete", new { id = item.ID })|
+                            @Html.ActionLink(Resources.Resource.Submit, "Submit", new { id = item.ID })
+
+                        </td>
+                    }
+                    else
+                    {
+                        
+                        <td>
+                            <a name="accept" href="javascript:void(0)" data-source="/Ajax/Employees/@(lastLog.TaskID)">同意</a>
+                            @Html.ActionLink(Resources.Resource.Reject, "Details", new { id = item.ID }) 
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td>@lastLog.Employee.RealName (@lastLog.Employee.Roles.First().Name)</td>
+                }
+</tr>
         }
 
     </table>
@@ -111,3 +131,28 @@
 <nav class="text-center">
     @Html.Pager(Model, new PagerOptions { PageIndexParameterName = "page", ShowGoButton = false, ContainerTagName = "ul", CssClass = "pagination" })
 </nav>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/editable")
+    <script>
+        $(function () {
+            $('a[name=accept]').editable({
+                type: 'select',
+                pk:1,
+                title: '请选择审核人',
+                validate: function (value) {
+                    if ($.trim(value) == '') {
+                        return '请选择一名审核人';
+                    }
+                },
+                url: "/Tenancies/Accept",
+                success: function () {
+                }
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    @Styles.Render("~/Content/editable")
+}

@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 同意 的本地化字符串。
+        /// </summary>
+        internal static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 返回 的本地化字符串。
         /// </summary>
         internal static string Back {
@@ -133,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 拒绝 的本地化字符串。
+        /// </summary>
+        internal static string Reject {
+            get {
+                return ResourceManager.GetString("Reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 角色 的本地化字符串。
         /// </summary>
         internal static string Role {
@@ -192,6 +210,15 @@ namespace Resources {
         internal static string ServiceCenter {
             get {
                 return ResourceManager.GetString("ServiceCenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 提交 的本地化字符串。
+        /// </summary>
+        internal static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
         

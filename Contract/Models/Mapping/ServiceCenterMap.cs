@@ -15,6 +15,10 @@ namespace Contract.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(20);
 
+            this.Property(t => t.Alias)
+                .IsRequired()
+                .HasMaxLength(10);
+
             this.Property(t => t.Address)
                 .IsRequired()
                 .HasMaxLength(40);
@@ -23,6 +27,7 @@ namespace Contract.Models.Mapping
             this.ToTable("ServiceCenter", "Configuration");
             this.Property(t => t.ID).HasColumnName("ID");
             this.Property(t => t.Name).HasColumnName("Name");
+            this.Property(t => t.Alias).HasColumnName("Alias");
             this.Property(t => t.Address).HasColumnName("Address");
         }
     }

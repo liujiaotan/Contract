@@ -20,7 +20,7 @@ namespace Contract.Controllers
         [Authorize]
         public ActionResult Index(int? id,  string Number,string Company, int page = 1)
         {
-            var tenancies = db.Tenancies.Include(t => t.Company).Include(t => t.Process).Include(t => t.ServiceCenter).Where(m=>m.IsDelete==false);
+            var tenancies = db.Tenancies.Include(t => t.Company).Include(t => t.Process).Include(t => t.ServiceCenter).Include("TenancyCheckLogs.Task").Include("TenancyCheckLogs.Employee.Roles").Where(m => m.IsDelete == false);
             if (!string.IsNullOrWhiteSpace(Number))
                 tenancies = tenancies.Where(m => m.Number.Contains(Number));
             if (Company != null)
@@ -77,13 +77,19 @@ namespace Contract.Controllers
                    serialNumber = "001";
                 else
                    serialNumber = (int.Parse(number.Substring(number.Length - 3)) + 1).ToString().PadLeft(3, '0');
-                tenancy.Number = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + serialNumber;
+                tenancy.Number = serviceCenter.Alias + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + serialNumber;
                 var rooms = SelectRooms.Split(',');
                 foreach(var room in rooms)
                 {
                     tenancy.Rooms.Add(db.Rooms.Find(int.Parse(room)));
                 }
                 db.Tenancies.Add(tenancy);
+                db.SaveChanges();
+                var task = db.Tasks.SingleOrDefault(m => m.Process.Name == "Tenancy" && m.NoteType == "Start");
+                if (task != null)
+                {
+                    db.TenancyCheckLogs.Add(new TenancyCheckLog { EmployeeID = this.UserID, TaskID = task.ID, TenancyID = tenancy.ID,Action="Create" });
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -176,5 +182,50 @@ namespace Contract.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [Authorize]
+        public ActionResult Submit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tenancy tenancy = db.Tenancies.Find(id);
+            if (tenancy == null)
+            {
+                return HttpNotFound();
+            }
+            var lastLog = db.TenancyCheckLogs.OrderByDescending(m => m.ID).FirstOrDefault(m => m.TenancyID == id);
+            var nextTask = db.Routes.SingleOrDefault(m=>m.FromTask == lastLog.TaskID);
+            if (nextTask != null)
+            {
+                db.TenancyCheckLogs.Add(new TenancyCheckLog { EmployeeID = nextTask.Task1.Role.Employees.First().ID, TaskID = nextTask.ToTask, TenancyID = tenancy.ID, Action = "Submit" });
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Accept(int? pk,int? value)
+        {
+            if (pk == null || value == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var lastLog = db.TenancyCheckLogs.OrderByDescending(m=>m.ID).FirstOrDefault(m=>m.TenancyID == pk);
+            if (lastLog == null)
+            {
+                return HttpNotFound();
+            }
+            if (lastLog.EmployeeID != this.UserID)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //db.TenancyCheckLogs.Add(new TenancyCheckLog { EmployeeID = this.UserID, TaskID = task.ID, TenancyID = tenancy.ID, Action = "Create" });
+            //db.SaveChanges();
+            return Json(new { });
+        }
+
     }
 }

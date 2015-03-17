@@ -7,6 +7,7 @@ namespace Contract.Models
     {
         public Employee()
         {
+            this.TenancyCheckLogs = new List<TenancyCheckLog>();
             this.Roles = new List<Role>();
         }
 
@@ -20,6 +21,7 @@ namespace Contract.Models
         public bool IsFreezed { get; set; }
         public bool IsDeleted { get; set; }
         public virtual ServiceCenter ServiceCenter { get; set; }
+        public virtual ICollection<TenancyCheckLog> TenancyCheckLogs { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
     }
